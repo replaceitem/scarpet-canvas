@@ -1,10 +1,11 @@
 {
   "required": true,
-  "package": "carpet_extension.mixins",
+  "package": "scarpet_canvas.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "CrashReport_noopMixin",
-    "MobEntity_makarenaMixin"
+    "FilledMap_Mixin",
+    "FilledMapAccessor_Mixin"
   ],
   "client": [
   ],
