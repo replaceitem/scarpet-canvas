@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "scarpet-canvas",
-  "version": "1.4.16",
+  "version": "${version}",
 
   "name": "scarpet-canvas",
   "description": "Use scarpet functions to draw on maps like pixels",

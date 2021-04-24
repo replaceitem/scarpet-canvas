@@ -2,6 +2,7 @@ package scarpet_canvas;
 
 import carpet.CarpetServer;
 import carpet.script.Expression;
+import carpet.script.LazyValue;
 import carpet.script.exception.InternalExpressionException;
 import carpet.script.value.*;
 
@@ -196,7 +197,7 @@ public class ScarpetFunctions {
 
 
 
-            return (cc, tt) -> Value.TRUE;
+            return LazyValue.TRUE;
         });
 
         expr.addLazyFunction("rgb_to_map", 3, (c, t, lv) -> {
