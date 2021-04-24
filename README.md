@@ -1,3 +1,5 @@
 # scarpet-canvas
 
-## WIP
+## Demo: https://youtu.be/3QHknBwRqJg
+
+## [Docs](docs.md)
