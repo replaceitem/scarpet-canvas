@@ -229,7 +229,7 @@ public class ScarpetFunctions {
 
             if(!(blockValue instanceof BlockValue)) return LazyValue.FALSE;
 
-            int color = ((BlockValue) blockValue).getBlockState().getMaterial().getColor().id;
+            int color = ((BlockValue) blockValue).getBlockState().getBlock().getDefaultMaterialColor().id;
 
             int colorId = MapColor.getShadedId(color,shade);
             return (cc, tt) -> new NumericValue(colorId);
