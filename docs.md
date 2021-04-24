@@ -40,3 +40,7 @@ Sends the content of the canvas to all maps with the specied id
 ### `rgb_to_map(r, g, b)`
 
 Returns the map color id that is the closest matching the rgb values
+
+### `block_color(block,shade?)`
+
+Returns the map color id for a certain block with a shade (0-3, 0 being darkest, 3 lightest, defaults to 2)
