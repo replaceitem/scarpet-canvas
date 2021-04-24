@@ -215,5 +215,24 @@ public class ScarpetFunctions {
 
             return (cc, tt) -> new NumericValue(colorId);
         });
+
+        expr.addLazyFunction("block_color", -1, (c, t, lv) -> {
+            if(lv.size() == 0) throw new InternalExpressionException("'block_color' requires at least one argument");
+
+            Value blockValue = lv.get(0).evalValue(c);
+
+            int shade = 2;
+            if(lv.size() > 1) {
+                Value shadeValue = lv.get(1).evalValue(c);
+                shade = NumericValue.asNumber(shadeValue).getInt();
+            }
+
+            if(!(blockValue instanceof BlockValue)) return LazyValue.FALSE;
+
+            int color = ((BlockValue) blockValue).getBlockState().getMaterial().getColor().id;
+
+            int colorId = MapColor.getShadedId(color,shade);
+            return (cc, tt) -> new NumericValue(colorId);
+        });
     }
 }
