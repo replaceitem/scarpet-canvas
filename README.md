@@ -3,3 +3,5 @@
 ## Demo: https://youtu.be/3QHknBwRqJg
 
 ## [Docs](docs.md)
+
+## [Examples](scripts)
