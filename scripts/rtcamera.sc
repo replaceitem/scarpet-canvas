@@ -9,7 +9,6 @@ global_settings =
 {
     ['map', 28839]
     ['fov', 90],
-    ['cpos', [0, 0, 0]],
     ['ray_length', 20],
     ['ray_steps', 16]
 };
@@ -34,7 +33,6 @@ renderNormal() ->
     fov = global_settings:'fov';
     screen_width = 128;
     screen_height = 128;
-    cpos = global_settings:'cpos';
     player = player();
     yaw = player ~ 'yaw';
     pitch = player ~ 'pitch';
@@ -69,7 +67,7 @@ renderNormal() ->
     if(global_is_task,
         global_is_task = false;
         print(format('l DONE!'));
-    )
+    );
     null
 );
 
@@ -104,13 +102,6 @@ setFov(int) ->
 (
     global_settings:'fov' = int;
     print(format('l Set FOV to ', 'e ' + int));
-    null
-);
-
-setCameraPosition(x, y, z) ->
-(
-    global_settings:'cpos' = [x, y, z];
-    print(format('l Set CAMERAPOSITION to ', 'e x:' + x + ' ', 'e y:' + y + ' ', 'e z:' + z));
     null
 );
 
