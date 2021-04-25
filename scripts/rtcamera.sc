@@ -2,14 +2,14 @@
 
 __command()->
 (
-    'asdf'
+    'Very informative help menu'
 );
 
 global_settings =
 {
     ['map', 28839]
     ['fov', 90],
-    ['cpos', [102, 58, 185]],
+    ['cpos', [0, 0, 0]],
     ['ray_length', 20],
     ['ray_steps', 16]
 };
@@ -19,13 +19,13 @@ renderTask() ->
 (
     task('renderNormal');
     print(format('l STARTED RENDER!'));
-    ''
+    null
 );
 
 giveMap() ->
 (
     run('give @s filled_map{map:28839} 1');
-    ''
+    null
 );
 
 renderNormal() ->
@@ -70,6 +70,7 @@ renderNormal() ->
         global_is_task = false;
         print(format('l DONE!'));
     )
+    null
 );
 
 __cast_ray(ray_start, ray_direction) ->
