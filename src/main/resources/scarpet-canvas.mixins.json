@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "scarpet_canvas.mixins",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
     "CrashReport_noopMixin",
     "FilledMap_Mixin",

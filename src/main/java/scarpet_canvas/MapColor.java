@@ -2,7 +2,7 @@ package scarpet_canvas;
 
 import java.awt.*;
 
-import static net.minecraft.block.MaterialColor.COLORS;
+import static net.minecraft.block.MapColor.COLORS;
 
 public class MapColor {
     static int[] shades = new int[]{180,220,255,135};
@@ -31,7 +31,7 @@ public class MapColor {
 
 
         //start with second color, since 1st is transparent
-        for(int i = 1; i < 59; i++) {
+        for(int i = 1; i <= 61; i++) {
             for(int j = 0; j < 4; j++) {
                 Color c = applyShade(new Color(COLORS[i].color),j);
 
@@ -52,7 +52,5 @@ public class MapColor {
         double g = (g1-g2);
         double b = (b1-b2);
         return Math.sqrt((r*r)+(g*g)+(b*b));
-
     }
-
 }

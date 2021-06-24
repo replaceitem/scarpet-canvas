@@ -1,7 +1,7 @@
 package scarpet_canvas;
 
 import carpet.script.value.Value;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtCompound;
 
 public class CanvasValue extends Value {
     byte[] img = new byte[128*128];
@@ -18,7 +18,7 @@ public class CanvasValue extends Value {
     }
 
     @Override
-    public Tag toTag(boolean b) {
+    public NbtCompound toTag(boolean b) {
         return null;
     }
 

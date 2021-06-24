@@ -14,10 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FilledMapItem.class)
 public class FilledMap_Mixin {
-    //Lnet/minecraft/item/FilledMapItem;createSyncPacket(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;)Lnet/minecraft/network/Packet;
     @Inject(at= @At("HEAD"), method = "createSyncPacket", cancellable = true)
     public void createSyncPacket(ItemStack stack, World world, PlayerEntity player, CallbackInfoReturnable<Packet<?>> cir) {
-        //System.out.println(FilledMapItem.getMapId(stack));
         if(FilledMapItem.getMapId(stack) > 10000) {
             cir.setReturnValue(null);
             cir.cancel();
@@ -27,7 +25,6 @@ public class FilledMap_Mixin {
 
     @Inject(at= @At("HEAD"), method = "inventoryTick", cancellable = true)
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        //System.out.println("CANCELED: " + FilledMapItem.getMapId(stack));
         if(FilledMapItem.getMapId(stack) > 10000) {
             ci.cancel();
         }

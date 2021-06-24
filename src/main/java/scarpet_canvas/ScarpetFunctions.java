@@ -2,24 +2,20 @@ package scarpet_canvas;
 
 import carpet.CarpetServer;
 import carpet.script.Expression;
-import carpet.script.LazyValue;
 import carpet.script.exception.InternalExpressionException;
 import carpet.script.value.*;
 
+import net.minecraft.item.map.MapState;
 import net.minecraft.network.packet.s2c.play.MapUpdateS2CPacket;
-
-import java.util.Collections;
 
 public class ScarpetFunctions {
     public static void apply(Expression expr) {
-        expr.addLazyFunction("create_canvas", 0, (c, t, lv) -> {
-            return (cc, tt) -> new CanvasValue();
-        });
+        expr.addContextFunction("create_canvas", 0, (c, t, lv) -> new CanvasValue());
 
-        expr.addLazyFunction("get_pixel", 3, (c, t, lv) -> {
-            Value canvas = lv.get(0).evalValue(c);
-            Value xVal = lv.get(1).evalValue(c);
-            Value yVal = lv.get(2).evalValue(c);
+        expr.addContextFunction("get_pixel", 3, (c, t, lv) -> {
+            Value canvas = lv.get(0);
+            Value xVal = lv.get(1);
+            Value yVal = lv.get(2);
 
             if(! (canvas instanceof CanvasValue)) throw new InternalExpressionException("'get_pixel' requires a canvas as the first argument");
             if(! (xVal instanceof NumericValue)) throw new InternalExpressionException("'get_pixel' requires a number as the second argument");
@@ -27,14 +23,14 @@ public class ScarpetFunctions {
 
             byte pix = ((CanvasValue) canvas).getPixel(((NumericValue) xVal).getInt(),((NumericValue) yVal).getInt());
 
-            return (cc, tt) -> new NumericValue(pix);
+            return new NumericValue(pix);
         });
 
-        expr.addLazyFunction("set_pixel", 4, (c, t, lv) -> {
-            Value canvas = lv.get(0).evalValue(c);
-            Value xVal = lv.get(1).evalValue(c);
-            Value yVal = lv.get(2).evalValue(c);
-            Value cVal = lv.get(3).evalValue(c);
+        expr.addContextFunction("set_pixel", 4, (c, t, lv) -> {
+            Value canvas = lv.get(0);
+            Value xVal = lv.get(1);
+            Value yVal = lv.get(2);
+            Value cVal = lv.get(3);
 
             if(! (canvas instanceof CanvasValue)) throw new InternalExpressionException("'set_pixel' requires a canvas as the first argument");
             if(! (xVal instanceof NumericValue)) throw new InternalExpressionException("'set_pixel' requires a number as the second argument");
@@ -45,12 +41,12 @@ public class ScarpetFunctions {
 
             ((CanvasValue) canvas).setPixel(((NumericValue) xVal).getInt(),((NumericValue) yVal).getInt(),col);
 
-            return (cc, tt) -> canvas;
+            return canvas;
         });
 
-        expr.addLazyFunction("fill_canvas", 2, (c, t, lv) -> {
-            Value canvas = lv.get(0).evalValue(c);
-            Value color = lv.get(1).evalValue(c);
+        expr.addContextFunction("fill_canvas", 2, (c, t, lv) -> {
+            Value canvas = lv.get(0);
+            Value color = lv.get(1);
 
             if(! (canvas instanceof CanvasValue)) throw new InternalExpressionException("'fill_canvas' requires a canvas as the first argument");
             if(! (color instanceof NumericValue)) throw new InternalExpressionException("'fill_canvas' requires a number as the second argument");
@@ -63,17 +59,17 @@ public class ScarpetFunctions {
             }
 
 
-            return (cc, tt) -> canvas;
+            return canvas;
         });
 
 
-        expr.addLazyFunction("rectangle", 6, (c, t, lv) -> {
-            Value canvas = lv.get(0).evalValue(c);
-            Value color = lv.get(1).evalValue(c);
-            Value xv = lv.get(2).evalValue(c);
-            Value yv = lv.get(3).evalValue(c);
-            Value wv = lv.get(4).evalValue(c);
-            Value hv = lv.get(5).evalValue(c);
+        expr.addContextFunction("rectangle", 6, (c, t, lv) -> {
+            Value canvas = lv.get(0);
+            Value color = lv.get(1);
+            Value xv = lv.get(2);
+            Value yv = lv.get(3);
+            Value wv = lv.get(4);
+            Value hv = lv.get(5);
 
             if(! (canvas instanceof CanvasValue)) throw new InternalExpressionException("'rectangle' requires a canvas as the first argument");
             if(! (color instanceof NumericValue)) throw new InternalExpressionException("'rectangle' requires a number as the second argument");
@@ -98,16 +94,16 @@ public class ScarpetFunctions {
             }
 
 
-            return (cc, tt) -> canvas;
+            return canvas;
         });
 
-        expr.addLazyFunction("ellipse", 6, (c, t, lv) -> {
-            Value canvas = lv.get(0).evalValue(c);
-            Value color = lv.get(1).evalValue(c);
-            Value xv = lv.get(2).evalValue(c);
-            Value yv = lv.get(3).evalValue(c);
-            Value wv = lv.get(4).evalValue(c);
-            Value hv = lv.get(5).evalValue(c);
+        expr.addContextFunction("ellipse", 6, (c, t, lv) -> {
+            Value canvas = lv.get(0);
+            Value color = lv.get(1);
+            Value xv = lv.get(2);
+            Value yv = lv.get(3);
+            Value wv = lv.get(4);
+            Value hv = lv.get(5);
 
             if(! (canvas instanceof CanvasValue)) throw new InternalExpressionException("'ellipse' requires a canvas as the first argument");
             if(! (color instanceof NumericValue)) throw new InternalExpressionException("'ellipse' requires a number as the second argument");
@@ -139,16 +135,16 @@ public class ScarpetFunctions {
             }
 
 
-            return (cc, tt) -> canvas;
+            return canvas;
         });
 
-        expr.addLazyFunction("line", 6, (c, t, lv) -> {
-            Value canvas = lv.get(0).evalValue(c);
-            Value color = lv.get(1).evalValue(c);
-            Value x1v = lv.get(2).evalValue(c);
-            Value y1v = lv.get(3).evalValue(c);
-            Value x2v = lv.get(4).evalValue(c);
-            Value y2v = lv.get(5).evalValue(c);
+        expr.addContextFunction("line", 6, (c, t, lv) -> {
+            Value canvas = lv.get(0);
+            Value color = lv.get(1);
+            Value x1v = lv.get(2);
+            Value y1v = lv.get(3);
+            Value x2v = lv.get(4);
+            Value y2v = lv.get(5);
 
             if(! (canvas instanceof CanvasValue)) throw new InternalExpressionException("'line' requires a canvas as the first argument");
             if(! (color instanceof NumericValue)) throw new InternalExpressionException("'line' requires a number as the second argument");
@@ -183,27 +179,28 @@ public class ScarpetFunctions {
 
 
 
-            return (cc, tt) -> canvas;
+            return canvas;
         });
 
-        expr.addLazyFunction("draw_map", 2, (c, t, lv) -> {
-            Value canvas = lv.get(0).evalValue(c);
-            Value id = lv.get(1).evalValue(c);
+        expr.addContextFunction("draw_map", 2, (c, t, lv) -> {
+            Value canvas = lv.get(0);
+            Value id = lv.get(1);
 
             if(! (canvas instanceof CanvasValue)) throw new InternalExpressionException("'draw_map' requires a canvas as the first argument");
             if(! (id instanceof NumericValue)) throw new InternalExpressionException("'draw_map' requires a number as the second argument");
 
-            CarpetServer.minecraft_server.getPlayerManager().sendToAll(new MapUpdateS2CPacket(((NumericValue) id).getInt(), (byte) 0,false,true,Collections.emptyList(),((CanvasValue) canvas).img,0,0,128,128));
+            MapState.UpdateData data = new MapState.UpdateData(0,0,128,128,((CanvasValue) canvas).img);
+            CarpetServer.minecraft_server.getPlayerManager().sendToAll(new MapUpdateS2CPacket(((NumericValue) id).getInt(), (byte) 0,false,null,data));
 
 
 
-            return LazyValue.TRUE;
+            return Value.TRUE;
         });
 
-        expr.addLazyFunction("rgb_to_map", 3, (c, t, lv) -> {
-            Value rv = lv.get(0).evalValue(c);
-            Value gv = lv.get(1).evalValue(c);
-            Value bv = lv.get(2).evalValue(c);
+        expr.addContextFunction("rgb_to_map", 3, (c, t, lv) -> {
+            Value rv = lv.get(0);
+            Value gv = lv.get(1);
+            Value bv = lv.get(2);
 
             final int colorId;
 
@@ -213,26 +210,26 @@ public class ScarpetFunctions {
                 throw new InternalExpressionException("'map_color' requires three numbers");
             }
 
-            return (cc, tt) -> new NumericValue(colorId);
+            return new NumericValue(colorId);
         });
 
-        expr.addLazyFunction("block_color", -1, (c, t, lv) -> {
+        expr.addContextFunction("block_color", -1, (c, t, lv) -> {
             if(lv.size() == 0) throw new InternalExpressionException("'block_color' requires at least one argument");
 
-            Value blockValue = lv.get(0).evalValue(c);
+            Value blockValue = lv.get(0);
 
             int shade = 2;
             if(lv.size() > 1) {
-                Value shadeValue = lv.get(1).evalValue(c);
+                Value shadeValue = lv.get(1);
                 shade = NumericValue.asNumber(shadeValue).getInt();
             }
 
-            if(!(blockValue instanceof BlockValue)) return LazyValue.FALSE;
+            if(!(blockValue instanceof BlockValue)) return Value.FALSE;
 
-            int color = ((BlockValue) blockValue).getBlockState().getBlock().getDefaultMaterialColor().id;
+            int color = ((BlockValue) blockValue).getBlockState().getBlock().getDefaultMapColor().id;
 
             int colorId = MapColor.getShadedId(color,shade);
-            return (cc, tt) -> new NumericValue(colorId);
+            return new NumericValue(colorId);
         });
     }
 }
