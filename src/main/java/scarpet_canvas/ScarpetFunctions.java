@@ -8,6 +8,8 @@ import carpet.script.value.*;
 import net.minecraft.item.map.MapState;
 import net.minecraft.network.packet.s2c.play.MapUpdateS2CPacket;
 
+import java.awt.*;
+
 public class ScarpetFunctions {
     public static void apply(Expression expr) {
         expr.addContextFunction("create_canvas", 0, (c, t, lv) -> new CanvasValue());
@@ -205,7 +207,7 @@ public class ScarpetFunctions {
             final int colorId;
 
             if(rv instanceof NumericValue && gv instanceof NumericValue && bv instanceof NumericValue) {
-                colorId = MapColor.getFromRGB(((NumericValue) rv).getInt(),((NumericValue) gv).getInt(),((NumericValue) bv).getInt());
+                colorId = MapColorUtils.getFromRGB(((NumericValue) rv).getInt(),((NumericValue) gv).getInt(),((NumericValue) bv).getInt());
             } else {
                 throw new InternalExpressionException("'map_color' requires three numbers");
             }
@@ -228,8 +230,14 @@ public class ScarpetFunctions {
 
             int color = ((BlockValue) blockValue).getBlockState().getBlock().getDefaultMapColor().id;
 
-            int colorId = MapColor.getShadedId(color,shade);
+            int colorId = MapColorUtils.getShadedId(color,shade);
             return new NumericValue(colorId);
+        });
+
+        expr.addContextFunction("map_to_rgb", 1, (c, t, lv) -> {
+            int colorId = NumericValue.asNumber(lv.get(0),"map color").getInt();
+            int col = MapColorUtils.getColorFromMapColor(colorId);
+            return ListValue.of(NumericValue.of(col & 0xFF),NumericValue.of(col>>8 & 0xFF),NumericValue.of(col>>16 & 0xFF));
         });
     }
 }
