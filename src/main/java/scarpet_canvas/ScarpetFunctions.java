@@ -8,8 +8,6 @@ import carpet.script.value.*;
 import net.minecraft.item.map.MapState;
 import net.minecraft.network.packet.s2c.play.MapUpdateS2CPacket;
 
-import java.awt.*;
-
 public class ScarpetFunctions {
     public static void apply(Expression expr) {
         expr.addContextFunction("create_canvas", 0, (c, t, lv) -> new CanvasValue());

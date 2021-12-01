@@ -5,7 +5,8 @@
   "mixins": [
     "CrashReport_noopMixin",
     "FilledMap_Mixin",
-    "FilledMapAccessor_Mixin"
+    "FilledMapAccessor_Mixin",
+    "MapColorAccessor"
   ],
   "client": [
   ],

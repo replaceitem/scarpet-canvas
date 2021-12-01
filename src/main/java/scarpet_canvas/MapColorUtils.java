@@ -1,13 +1,14 @@
 package scarpet_canvas;
 
 import net.minecraft.block.MapColor;
+import scarpet_canvas.mixins.MapColorAccessor;
 
 import java.awt.*;
 
-import static net.minecraft.block.MapColor.COLORS;
-
 public class MapColorUtils {
     static int[] shades = new int[]{180,220,255,135};
+
+    private static final MapColor[] COLORS = MapColorAccessor.getCOLORS();
 
     public static int getShadedId(int baseId, int shade) {
         if(shade < 4 && shade >= 0)
@@ -52,7 +53,7 @@ public class MapColorUtils {
         int color = colorId/4;
         int shade = colorId%4;
         MapColor mapColor = COLORS[color];
-        return mapColor.getRenderColor(shade);
+        return mapColor.getRenderColor(MapColor.Brightness.validateAndGet(shade));
     }
 
 
